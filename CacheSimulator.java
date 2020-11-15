@@ -33,10 +33,9 @@ public class CacheSimulator{
         {
             String rawLine = sc.nextLine();
             String[] tokens = rawLine.split("\t");
-            int loadOrStore = Integer.parseInt(tokens[0]);
+            //int loadOrStore = Integer.parseInt(tokens[0]);
             int addr = Integer.parseInt(tokens[1], 16);
-          
-
+            CacheGroup.feedAddress(addr);
             System.out.println(addr);
             count++;
         }
