@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CacheGroup {
-    private static List<Cache> caches = new ArrayList<>(){{
+    private static List<Cache> caches = new ArrayList<Cache>(){{
         add(new Cache(1, 2048, 1, 1));
         add(new Cache(2, 2048, 1, 2));
         add(new Cache(3, 2048, 1, 4));

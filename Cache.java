@@ -42,7 +42,7 @@ public class Cache{
         int bloff = getBlockOffset(address);
         int index = getIndex(address);
         int tag = getTag(address);
-        if(this.verbose)System.out.println("\tGot tag: " + tag + ", index: " + index + ", and bloff:" + bloff);
+        //if(this.verbose)System.out.println("\tGot tag: " + tag + ", index: " + index + ", and bloff:" + bloff);
         int way = presentAt(tag, index);
         if(way != -1) {
             hits += 1;
@@ -58,10 +58,10 @@ public class Cache{
         int way = findWay(virtualIndex);
         int realIndex =  getRealIndex(way, virtualIndex);
         //int blockStartIndex = realIndex - bloff;
-        if(this.verbose)System.out.println("Storing tag: " + tag + " using way: " + way + " at block starting at: " + realIndex);
+        //if(this.verbose)System.out.println("Storing tag: " + tag + " using way: " + way + " at block starting at: " + realIndex);
         memory[realIndex] = tag;
         accessTimes[realIndex] = CacheSimulator.line;
-        if(this.verbose)System.out.println("\tStored tag: " + (tag) + " at real index: " + (realIndex));
+        //if(this.verbose)System.out.println("\tStored tag: " + (tag) + " at real index: " + (realIndex));
     }
 
     private int findWay(int virtualIndex){
@@ -95,19 +95,19 @@ public class Cache{
         for(int way = 0; way < associativity; way += 1) {
             realIndex =  getRealIndex(way, virtualIndex);
             memVal = memory[realIndex];
-            if(this.verbose)System.out.println("\tFound tag val " + memVal + " at real index " + realIndex);
+            //if(this.verbose)System.out.println("\tFound tag val " + memVal + " at real index " + realIndex);
             if(memVal == tag){
-                if(this.verbose)System.out.println("\tmatch!");
+                //if(this.verbose)System.out.println("\tmatch!");
                 return way;
             }
         }
-        if(this.verbose)System.out.println("\tno matches, not present");
+        //if(this.verbose)System.out.println("\tno matches, not present");
         return -1;
 
     }
 
     private int getIndex(Integer addr){
-        if(this.verbose)System.out.println(this.toString() + "\nGetting index for address " + addr);
+        //if(this.verbose)System.out.println(this.toString() + "\nGetting index for address " + addr);
         // shift left to get rid of tag bits, then logical shift right to get rid of the blockBits
         int temp1 = addr << tagBits;
         int temp2 = temp1 >>> (tagBits + blockBits + byteBits);
@@ -123,12 +123,12 @@ public class Cache{
 
     public void printResult(int num)
     {
-        System.out.println("Cache Num: " + num + "\t");
-        System.out.println("Cache size: " + cacheSize + "\t");
+        System.out.println("Cache #" + num + "\t");
+        System.out.print("Cache size: " + cacheSize + "B\t");
         System.out.print("Associativity: " + associativity + "\t");
         System.out.println("Block size: " + blockSize);
-        System.out.println("Hits: " + hits);
-        System.out.println("Hit Rate: " + hitRate * 100 + "%");
+        System.out.print("Hits: " + hits);
+        System.out.println("   Hit Rate: " + String.format("%.2f", hitRate * 100)+ "%");
         System.out.println("---------------------------");
     }
 
